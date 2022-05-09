@@ -1,0 +1,39 @@
+\chapter{Introduction}
+\label{chap:introduction}
+\setcounter{page}{1}
+\pagenumbering{arabic}
+
+With the development of artificial intelligence, Speech Emotion Recognition (SER) has become an important component of Human-Computer Interaction (HCI)~\cite{ZhangHJ14-3} and beyond. Recently, deep learning has emerged as a promising technique for training more robust models by extracting highly abstract representations compared to traditional big data machine learning approaches~\cite{triantafyllopoulos2019towards}. A range of deep learning topologies have been successfully applied to SER tasks, such as Convolutional Neural Networks (CNNs)~\cite{trigeorgis2016adieu} and Recurrent Neural Networks (RNNs)~\cite{zhao2019exploring}.
+According to recent studies, deep learning models are vulnerable to external adversarial attacks~\cite{ren2020enhancing}, where the generated examples have a high degree of similarity to real data.
+This naturalness can be achieved by adding minimal and well-designed perturbations. In addition, adversarial samples can make deep learning models susceptible to misclassification. In particular, adversarial attacks have the potential to pose a threat to SER systems, resulting in invalid and misinterpreted interactions with users~\cite{ren2020generating}. For example, adversarial attacks may even be life-threatening in the case of misdiagnosis of emotion-related psychiatric disorders, e.g. g., depression~\cite{ringeval2019avec} and bipolar disorder~\cite{ren2019multi}.
+
+\section{Motivation}
+
+Generating artificial adversarial samples to simulate the attack process is an important step in preventing real-world attacks. This also helps to further improve the robustness of the targeted deep learning model~\cite{samangouei2018defense}. In this regard, a series of research works aim to construct white-box and black-box adversarial attacks~\cite{ren2020enhancing,madry2017towards}. White-box attacks require data sources and
+complete parameters within the target model, while the data or parameters are blind in black-box attacks~\cite{madry2017towards}. While examples of white-box attack generation can be induced by gradient descent methods~\cite{ren2020enhancing}, searching for black-box attacks without knowledge or partial knowledge of the target model is challenging. Improving the transferability of black-box adversarial attacks
+Facilitates the generation of stronger adversarial data that are transferable between different target models~\cite{liu2017delving}. Highly transferable adversarial attacks can deceive not only already deployed target models but also new target systems~\cite{wu2018understanding}.
+Improved transferability can also help save costs associated with learning a unified attacker compared to training independent attackers for each target model. While attacking target models is often considered as a single task, multi-task learning~\cite{zhao2018data,zhang2019attention} optimizes attackers to deceive multiple target models simultaneously. However, training multiple tasks increases the complexity in time and space. Transfer learning~\cite{wang2018great} can help fine-tune the attacker to obtain new target models using prior knowledge gained from the previous target; however, the attack model gradually forgets the prior knowledge. Inspired by the lifelong learning paradigm~\cite{parisi2019continual}, we propose for the first time, to the authors' knowledge, to improve the transferability of black-box adversarial attacks by exploiting the lifelong learning framework.
+Lifelong learning constrainedly migrates prior knowledge and thus promises to overcome the drawbacks of multitasking and migratory learning by adapting the attack model to a new target model, reducing time and memory, and not forgetting prior knowledge. With this goal in mind, this paper aims to improve the transferability of non-targeted black-box adversarial attacks for deep SER models.
+ 
+\section{Contribution}
+
+In this thesis, we provide a framework based on dynamically extended networks for lifelong learning of attack models. The main work and contributions are summarized as follows:
+\begin{enumerate}[\qquad  1.]
+	\item The approach of dynamically expanding networks is successfully applied to the attack model for adversarial networks, enabling lifelong learning.
+	\item Demonstrates that a lifelong learning approach can be effective for multiple tasks simultaneously.
+	\item Achieves better results for simultaneous multi-task attacks.
+\end{enumerate}
+
+
+\section{Organization of the Thesis}
+This thesis is structured as follows:
+
+In Chapter~\ref{chap:relatedwork}, we will discuss about the related works. Some advanced researches and methods for enhancing transferability of adversarial attacks. We also demonstrate their contributions and limitations.
+
+In Chapter ~\ref{chap:bg}, the theories about lifelong learning and attack models(CNN)and algorithm such as Regularization will be introduced. And how did signal processe.
+
+In Chapter ~\ref{chap:framework}, the methodology(DEN) will be shown in detail.
+
+In Chapter ~\ref{chap:experiment},the experimental results will be presented and analyzed in detail. Our proposed framework is evaluated on target models with evaluation metrics.
+
+In Chapter ~\ref{chap:conclusion}, we conclude our work finally and point out the future research direction.

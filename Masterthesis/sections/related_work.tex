@@ -1,0 +1,79 @@
+\chapter{Related Work}
+\label{chap:relatedwork}
+Recently, most of the research on adversarial attacks has studied image processing tasks~\cite{akhtar2018threat}, while only a few works focus on adversarial attacks on SER systems. A few works in~\cite{gong2017crafting} explore white-box attacks to spoof SER models. A Generative Adversarial Network (GAN) based approach has also been proposed to generate black-box fake data~\cite{latif2018adversarial}. The research in our paper focuses on generating black-box adversarial data to deceive deep SER models. In the experiments, we focus on the fact that the same attack model can be trained by multiple defensive models and be effective for multiple defensive models at the same time, i.e., making the accuracy of multiple defensive models decrease.
+
+\section{Attack model:Black-box}
+
+\subsection{Adversarial Attack}
+
+Most of the image classification networks based on deep learning are trained under elaborate datasets and deployed accordingly, and the recognition ability of the network is often affected to some extent for images outside the dataset or slightly modified images.
+Under this phenomenon, Adversarial Attack starts to join in the examination of network model robustness.
+By adding different noise or modifying some regions of the image to generate adversarial samples, the samples are used to attack the network model in order to confuse the network, i.e., adversarial attack.
+The added interference information does not make any difference to the human eye, but for the network model, a change in some values can cause a "one-shot" effect. This will be a very significant error in the actual application, if it happens in the field of security, security, etc., there will be incalculable problems.
+Counter-attack is usually divided into white-box attacks and black-box attacks. For a white-box attack, the attacker knows all the information and parameters inside the model and generates an adversarial sample based on the gradient of the given model to attack the network. For black-box attacks, the attacker does not know the parameters and structural information of the model, and generates adversarial samples based on the inputs and outputs of the model only, and then attacks the network. The idea of both black-box and white-box attacks is to pass the gradient information in order to generate adversarial samples that can deceive the network.
+
+\subsection{Black-box Attack}
+
+When the attacker does not have access to the model details, white-box attacks are obviously not applicable. Black-box attacks, i.e., without knowing the parameters and structural information of the model, generate adversarial samples only through the inputs and outputs of the model, and then attack the network.
+The secrecy of the corresponding system in real life is still reliable, and the information of the model is completely leaked rarely, so the white-box attack is much less than the black-box attack. However, the idea of both is the same, to pass the gradient information in order to generate adversarial samples for the purpose of deceiving the network model.
+Black-box attacks are known in the literature as a way to trick neural networks into misclassifying instances, usually by adding perturbations (i.e., extra noise) to the data~\cite{ren2020generating}. In our example, let us define the input data as $x$, the target as y, and the learning parameters of a deep model (e.g., a convolutional neural network (CNN)) as $w$. We first reduce the deep model to a linear function: $y = wx$, and add a little perturbation to the input data $x$, defining the new input data as $x^{\prime}=x+\theta$. The function $y = wx$ can then be updated to $w x^{\prime}=w x+w \theta$. As the model goes deeper (i.e., additional layers), the model may produce incorrect predictions of $w x^{\prime}$ from $wx$, even though $\theta$ is very small. Similarly, the nonlinear depth model is subject to perturbations. Therefore, the generated data $x^{\prime}$ (i.e., adversarial data) may try to trick the depth model by adding adversarial noise to the original real data $x$, as shown in Figure 1.
+To generate adversarial data, we used the Fast Gradient Sign Method (FGSM)~\cite{ren2020generating}, which computes the gradient as adversarial noise. The loss value during training is defined by $L(\boldsymbol{w}, \boldsymbol{x}, y)$ and the gradient $\nabla_{\boldsymbol{x}} L(\boldsymbol{w}, \boldsymbol{x}, y)$ can be obtained by backpropagation. The adversarial data can be computed by $$\boldsymbol{x}^{\prime}=\boldsymbol{x}+\epsilon * \operatorname{sign}\left(\nabla_{\boldsymbol{x}} L(\boldsymbol{w}, \boldsymbol{x}, y)\right)$$
+$$\boldsymbol{x}^{\prime}=\operatorname{clip}\left(\boldsymbol{x}^{\prime}, \boldsymbol{x}-\eta, \boldsymbol{x}+\eta\right)$$where is a constant perturbation factor and $\eta$ is a constant parameter used to crop $x^{\prime}$ into the interval $[\boldsymbol{x}-\eta, \boldsymbol{x}+\eta]$. The generated dummy data can help in data augmentation while training the model and attack the pre-trained model during validation. As shown in Figure 2, the deep model can produce correct predictions for the real log-Mel spectrogram image with a probability of 0.866. However, in our example, it predicts $happiness$ with a probability of 0.958 after adding a slight adversarial noise to the original image.
+
+\section{Methods for enhancing transferability of adversarial attacks}
+
+In this experiment, the attack model needs to attack multiple defensive models at the same time. Therefore multi-task learning is the focus of the study, how to have better results in different defense models at the same time?
+There are usually several common approaches to multi-task learning:
+\begin{enumerate}[\qquad  1.]
+	\item Single-task learning
+	\item Multi-task learning
+	\item Transfer learning
+	\item Lifelong learning
+\end{enumerate}
+
+\subsection{Single-task learning}
+
+Single-task learning is the traditional learning method, which is a classifier for a single task. Advantages of single-task learning: it can classify targets accurately and achieve high accuracy. The disadvantages are also very obvious: it is not able to learn efficiently for other tasks, wastes time and memory, and requires restarting the training each time.
+For our black box attack, it is very intrusive for one task and can make the accuracy of the classifier drop significantly. But it cannot be effective for more than one task at the same time, i.e., it does not feature transfer learning. The principle is similar to this image.
+
+\subsection{Multi-task learning}
+
+Multitask Learning is an inductive migration learning method in which the main tasks use the domain-specific information possessed by the training signal of the related tasks~\cite{bengio2006greedy}. It is a machine learning method that uses the domain-specific information possessed by the training signal of related tasks as an inductive bias to improve the generalization performance of the main tasks. Multi-task learning involves multiple related tasks learning in parallel, with gradients back-propagating simultaneously, and multiple tasks helping each other to learn through the underlying shared representation to improve the generalization performance~\cite{collobert2008unified}. In short: multitask learning puts multiple related tasks together (note that they must be related tasks, and the definition of related tasks and the information they share will be given later), and the learning process (training) is performed through a shared representation at a shallow level to help each other The learning process (training) is based on a shared representation at a shallow level to share and complement each other's domain information, to promote each other's learning, and to improve generalization.
+Advantages of multi-task learning:
+\begin{enumerate}[\qquad  1.]
+	\item Multiple related tasks are put together for learning, and there are related parts, but there are also irrelevant parts. When learning a task (Main task), the parts that are not relevant to the task are equivalent to noise in the learning process, so introducing noise can improve the generalization (generalization) effect of learning.
+	\item In single task learning, the back propagation of gradient tends to fall into local minima. In multi-task learning, the local minima of different tasks are in different locations, which can help the hidden layer escape from the local minima by interacting with each other.
+	\item The added tasks can change the dynamic characteristics of the weight update, which may make the network more suitable for multi-task learning. For example, multi-task learning in parallel improves the learning rate of the shallow shared representation layer (SHARED representation), and possibly, the larger learning rate improves the learning effect.
+	\item Multiple tasks in the shallow shared representation may weaken the network, reduce network overfitting, and improve the generalization effect.
+\end{enumerate}
+
+\subsection{Transfer learning}
+
+Pre-training + fine-tuning is a very popular transfer learning approach in deep learning, and often the pre-trained ImageNet is chosen to initialize the model.
+The concept in transfer learning:
+\begin{enumerate}[\qquad  1.]
+	\item Domain:Generally refers to the feature space and probability distribution.
+	\item Task:Includes marker space and target prediction function.
+	\item Source And Target:The former is the domain/task used to train the model, and the latter is the domain/task to perform machine learning tasks such as prediction/classification/clustering on your own data using the former model.
+\end{enumerate}
+
+The types of transfer learning can be categorized according to the content of the transfer as follows:
+\begin{enumerate}[\qquad  1.]
+	\item Instance-based TL:The source domain data cannot be directly used in the target domain, but there are some data in the source domain that can be reused in the target domain. After adjusting the weight to match the data in the target domain, the data can be migrated.
+	\item Feature-representation-transfer:Find some good representative features and transform the features of source domain and target domain to the same space by feature transformation, so that the data of source domain and target domain have the same distribution in this space.
+	\item Parameter-transfer:Suppose some parameters are shared between source tasks and target tasks, or the prior distribution of model hyperparameters is shared. This can achieve good accuracy when migrating the original model to the new domain
+\end{enumerate}
+
+$Pre-training + fine-tuning transfer$ learning approach can be understood as a Parameter-transfer, and this approach is also the most commonly used application of transfer learning.The common training trick and tuning methods used in the transfer learning process in the $Pre-training + fine-tuning$ mode are summarized as follows:
+\begin{enumerate}[\qquad  1.]
+	\item Feature Extractor:TensorFlow or Pytorch have pre-trained models on ImageNet, and the last fully-connected layer (the original is 1000 categories or more) can be changed to the output of your own classification task, or the last layer can be directly removed and replaced with your own classifier, and the rest of the network structure can be used as a feature extractor.
+	\item Fine-tuning:In general, it is not always good enough to use the pre-trained model directly, so fine-tuning is needed. fine-tuning requires freezing the parameters of the first few layers of the network and updating only the later layers of the network structure and the last fully connected layer, which will be more effective.
+	\item Learning rate:It is generally not recommended to use too large a learning rate in the fine-tuning process of migration learning; usually 1e-5 is a more appropriate choice.
+\end{enumerate}
+
+The disadvantage of transfer learning is also obvious: it is easy to forget the previous knowledge (model parameters). Transfer learning will pass the previous parameters to the new model to continue training, but will not consider again the impact of the newly trained model on the previous model.
+
+\subsection{Lifelong learning}
+
+Lifetime learning~\cite{thrun1995lifelong}, the problem of continuous learning in which tasks arrive sequentially, is an important topic in migration learning. The main goal of lifelong learning is to exploit the knowledge from earlier tasks to obtain better performance or to obtain faster convergence/training speed on the model for later tasks. While many different approaches exist to address this problem, we consider lifelong learning under deep learning to harness the power of deep neural networks. Fortunately, for deep learning, knowledge can be stored and transferred in a straightforward manner through learned network weights. The learned weights can be used as knowledge for existing tasks, and new tasks can take advantage of this by simply sharing these weights. Thus, in the case of deep neural networks, we can consider lifelong learning simply as a special case of online or incremental learning. There are multiple ways to perform such incremental learning~\cite{rusu2016progressive}. The simplest approach is to incrementally fine-tune the network to fit the new task by continuing to train the network with new training data. However, this simple retraining of the network degrades the performance of both the new task and the old task. If the new task is very different from the old one, e.g., the previous task was to classify images of animals, while the new task is to classify images of cars, the features learned in the previous task may be useful for the new one. At the same time, retrained representations of the new task may adversely affect the old task because they may have deviated from their original meaning and no longer fit them. For example, a feature describing a zebra stripe pattern may change its meaning for a later classification task for categories such as striped T-shirts or fences, which can adapt the feature and completely change its meaning.
+Recent work suggests using regularizers to prevent drastic changes in parameter values, but still find a good solution for new tasks~\cite{kirkpatrick2017overcoming} or to prevent any changes to old task parameters~\cite{rusu2016progressive}.

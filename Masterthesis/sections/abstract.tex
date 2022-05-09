@@ -1,0 +1,33 @@
+\chapter*{Abstract}
+\label{chap:Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+\setcounter{page}{1}
+\pagenumbering{roman}
+%******************************************************************************
+In recent studies, well-designed adversarial attacks can easily fool deep Speech Emotion Recognition (SER) models into misclassifications. The transferability of adversarial attacks is a crucial evaluation indicator when generating adversarial examples to fool a new target model or multiple target models. However, to enhance the attacker's transferability, multi-task learning may require a large memory space and transfer learning may result in that an attacker forgets the knowledge from prior target models. Different from multi-task learning and transfer learning, lifelong learning can save more memory space than conventional multi-task learning and keep the attacker to deceive all target models.
+In this thesis, a novel lifelong learning approach refer to as Dynamically Expandable Network (DEN), is applied to train black-box adversarial attacks for deceiving multiple target SER models. Specifically, the black-box adversarial attacks generate adversarial examples with an atrous convolutional neural network. Firstly, an adversarial attack model is trained on the first target model. Then, the trained attacker is adapted to a new target model using DEN. The DEN can dynamically adapt its network capacity as it trains on a sequence of tasks, to learn a compact overlapping knowledge sharing structure among tasks. DEN is efficiently trained in an online manner by performing i) selective retraining, ii) dynamically expanding network capacity upon arrival of each task with only the necessary number of units, and iii) effectively preventing semantic drift by splitting units. 
+
+
+
+%In this thesis we mainly discuss  the solutions for visual relation detection. To find the solutions, we not only need to  develop models that detect the objects in an image, but also need to predict the interactions between the detected objects. Therefore, a comprehensive scene understanding of an image would be considered in aspect of connecting computer vision and natural language  helpful. Even though the work in area of deep learning has been quite successful, it remains to be a complex and challenging task to extract related scene information. 
+%
+% Inspired by the contemporary achievement of transformer in computer vision, we propose Retina Net, which was based transformer structure. In order to meet different requirements in visual relation detection, we designed specific object queries with physical meanings. The specific object queries is capable of extracting better object features in an image with the help of our attention loss.  By considering the global context, we also model relation to object interactions through the relation decoder. We attempt a lot to find the mechanism of attention in the models and to understand which details should be paid more attention to when it comes to relation predicts.
+% 
+% To our best effort, our study for the first time try to complete all the models of relation detection . It is a new approach to solve the problems by using transformer structure. The results of our experiments indicate that our models solve the tasks in visual relation detection properly.
+
+%------------------------------------------------------------------------
+%-------------------------------------------------------------------------
+
+%******************************************************************************
+\chapter*{Kurzfassung}
+
+%------------------------------------------------------------------------
+%-------------------------------------------------------------------------
+
+%******************************************************************************
+\label{chap:Kurzfassung}
+\addcontentsline{toc}{chapter}{Kurzfassung}
+
+In neueren Studien k"onnen gut konzipierte gegnerische Angriffe Deep Speech Emotion Recognition (SER)-Modelle leicht zu Fehlklassifizierungen t"auschen. Die "Ubertragbarkeit gegnerischer Angriffe ist ein entscheidender Bewertungsindikator bei der Generierung gegnerischer Beispiele, um ein neues Zielmodell oder mehrere Zielmodelle zu t"auschen. Um jedoch die "Ubertragbarkeit des Angreifers zu verbessern, kann Multi-Task-Lernen einen grossen Speicherplatz erfordern und Transfer-Lernen kann dazu f"uhren, dass ein Angreifer das Wissen aus fr"uheren Zielmodellen vergisst. Anders als Multi-Task-Lernen und Transfer-Lernen kann lebenslanges Lernen mehr Speicherplatz sparen als herk"ommliches Multi-Task-Lernen und den Angreifer dazu bringen, alle Zielmodelle zu t"auschen.
+
+In dieser Arbeit wird ein neuartiger Ansatz des lebenslangen Lernens, der als Dynamically Expandable Network (DEN) bezeichnet wird, angewendet, um Black-Box-Attacken zu trainieren, um mehrere Ziel-SER-Modelle zu t"auschen. Insbesondere die gegnerischen Black-Box-Angriffe erzeugen gegnerische Beispiele mit einem atrous Convolutional Neural Network. Zuerst wird ein gegnerisches Angriffsmodell auf das erste Zielmodell trainiert. Dann wird der trainierte Angreifer mit DEN an ein neues Zielmodell angepasst. Das DEN kann seine Netzwerkkapazit"at dynamisch anpassen, während es eine Abfolge von Aufgaben trainiert, um eine kompakte, sich "uberschneidende Wissensteilungsstruktur zwischen Aufgaben zu lernen. DEN wird effizient online trainiert, indem i) selektives Neutraining durchgeführt wird, ii) die Netzwerkkapazit"at beim Eintreffen jeder Aufgabe nur mit der erforderlichen Anzahl von Einheiten dynamisch erweitert wird und iii) semantisches Driften durch Aufteilen von Einheiten wirksam verhindert wird.
